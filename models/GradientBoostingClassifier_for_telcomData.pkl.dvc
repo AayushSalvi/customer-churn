@@ -1,0 +1,5 @@
+outs:
+- md5: 2f9f03fa2355c80a022c8d9214f3be7d
+  size: 195284
+  hash: md5
+  path: GradientBoostingClassifier_for_telcomData.pkl
