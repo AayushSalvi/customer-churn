@@ -1,0 +1,13 @@
+make_dataset:
+  test_size: 0.2
+  random_state: 30
+
+data_preprocessing:
+  percentiles:
+    - 0.002
+    - 0.998
+
+train_model:
+  GradientBoostingClassifier:
+    n_estimators: 150    # Change the number of estimators to a higher number to get better results
+    
