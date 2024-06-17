@@ -119,34 +119,36 @@ def main():
             save_dataframe(dataframe=X_trans,
                            save_path=save_data_path / filename)
             
-        elif filename == 'val.csv':
-            df = read_dataframe(complete_input_path)
-            # make X and y
-            X = df.drop(columns=TARGET)
-            y = df[TARGET]
-            # load the transfomer
-            outlier_transformer = joblib.load(save_transformers_path / 'outliers.joblib')
-            df_without_outliers = transform_data(transformer=outlier_transformer,
-                                                data=X)                
-            # load the preprocessor
-            preprocessor = joblib.load(save_transformers_path / 'preprocessor.joblib')
-            # transform the data
-            X_trans = transform_data(transformer=preprocessor,
-                                    data=X)
-            # load the output transformer
-            output_transformer = joblib.load(save_transformers_path / 'output_transformer.joblib') 
-            # transform the target
-            y_trans = transform_data(transformer=output_transformer,
-                                    data=y.values.reshape(-1,1))
-            # save the transformed output to the df
-            X_trans['trip_duration'] = y_trans
+        # elif filename == 'test.csv':
+        #     df = read_dataframe(complete_input_path)
+        #     # make X and y
+        #     X = df.drop(columns=TARGET)
+        #     y = df[TARGET]
+        #     # load the transfomer
+        #     outlier_transformer = joblib.load(save_transformers_path / 'outliers.joblib')
+        #     df_without_outliers = transform_data(transformer=outlier_transformer,
+        #                                         data=X)                
+        #     # load the preprocessor
+        #     preprocessor = joblib.load(save_transformers_path / 'preprocessor.joblib')
+        #     # transform the data
+        #     X_trans = transform_data(transformer=preprocessor,
+        #                             data=X)
+        #     # load the output transformer
+        #     output_transformer = joblib.load(save_transformers_path / 'output_transformer.joblib') 
+        #     # transform the target
+        #     y_trans = transform_data(transformer=output_transformer,
+        #                             data=y.values.reshape(-1,1))
+        #     # save the transformed output to the df
+        #     X_trans['trip_duration'] = y_trans
             
-            # save the transformed data
-            save_dataframe(dataframe=X_trans,
-                        save_path=save_data_path / filename)
+        #     # save the transformed data
+        #     save_dataframe(dataframe=X_trans,
+        #                 save_path=save_data_path / filename)
             
         elif filename == 'test.csv':
             df = read_dataframe(complete_input_path)
+            X = df.drop(columns=TARGET)
+            y = df[TARGET]
             # load the transfomer
             outlier_transformer = joblib.load(save_transformers_path / 'outliers.joblib')
             df_without_outliers = transform_data(transformer=outlier_transformer,
@@ -155,7 +157,8 @@ def main():
             preprocessor = joblib.load(save_transformers_path / 'preprocessor.joblib')
             # transform the data
             X_trans = transform_data(transformer=preprocessor,
-                                    data=df)
+                                    data=X)
+            X_trans['Churn'] = y
             # save the transformed data
             save_dataframe(dataframe=X_trans,
                         save_path=save_data_path / filename)
